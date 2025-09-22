@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | AmiiCAD | Amit Sharma</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="website icon" type="jpg" href="./Images/logo.jpg">
+    <link rel="stylesheet" href="mediaqueries.css" />
+
+</head>
+<style>
+  nav, .nav-links {
+      display: flex;
+    }
+
+    nav {
+      justify-content: space-around;
+      align-items: center;
+      height: 17vh;
+    }
+
+    .nav-links {
+      gap: 2rem;
+      list-style: none;
+      font-size: 1.5rem;
+    }
+    .article-container{
+      overflow: hidden;
+    }
+    .article-container img:hover{
+      transform: scale(1.15);
+    }
+</style>
+
+<body>
+    <nav id="desktop-nav">
+        <div class="logo"><b>AmiiCAD</b></div>
+        <div>
+          <ul class="nav-links">
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a style="background-color: gray; color: white; border-radius: 30px; padding: 5px 10px;" href="./project.html">Projects</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="#contact">Log in</a></li>
+          </ul>
+        </div>
+      </nav>
+      <nav id="hamburger-nav">
+        <div class="logo">AmiiCAD</div>
+        <div class="hamburger-menu">
+          <div class="hamburger-icon" onclick="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+          <div class="menu-links">
+            <li><a href="./index.html" onclick="toggleMenu()">Home</a></li>
+            <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+            <li><a href="./project.html" onclick="toggleMenu()">Projects</a></li>
+            <li><a href="./contact.html" onclick="toggleMenu()">Contact</a></li>
+            <li><a href="#contact" onclick="toggleMenu()">Log in</a></li>
+          </div>
+        </div>
+      </nav>
+
+
+      
+
+      <section id="projects">
+        <p class="section__text__p1">Browse My All Recent</p>
+        <h1 class="title">Projects</h1>
+        <div class="experience-details-container">
+
+          <div class="about-containers">
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/RC Helicopter.jpg"
+                alt="Project 1"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">RC Helicopter</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo13.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/V6 Turbo Charge.jpg"
+                alt="Project 2"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">V6 Turbo Charge</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo14.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/Heat Exchanger.jpg"
+                alt="Project 3"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Heat Exchanger</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo15.html'"
+              >
+                More Info
+            </button>
+            </div>
+          </div>
+        </div>
+
+
+
+
+        <div class="about-containers">
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/Sheet Metal Cutting Machine.jpg"
+                alt="Project 1"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Sheet Cutting Machine</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo10.html'"
+              >
+              More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/Water Tank.jpg"
+                alt="Project 2"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Water Tank</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo11.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/Drone2.jpg"
+                alt="Project 3"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Drone</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo9.html'"
+              >
+              More Info
+              </button>
+            </div>
+          </div>
+          
+        </div>
+        <div class="about-containers">
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/Hydraulic Press.jpg"
+                alt="Project 1"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Hydraulic Press</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo4.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/hydraulic press break bending machine.jpg"
+                alt="Project 2"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Hydraulic Bending Machine</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo7.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/Universal joint.jpg"
+                alt="Project 3"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Universal Joint</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo6.html'"
+              >
+                More Info
+            </button>
+            </div>
+          </div>
+        </div>
+        <div class="about-containers">
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/Hopper Feeder.jpg"
+                alt="Project 1"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Hopper Feeder</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo1.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/Screw Conveyor.jpg"
+                alt="Project 2"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Screw Conveyor</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo8.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./Images/Screw Water Turbine.jpg"
+                alt="Project 3"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Screw WaterTurbine</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo3.html'"
+              >
+                More Info
+            </button>
+            </div>
+          </div>
+        </div>
+         
+
+
+
+
+
+
+
+          
+          <div style="justify-content: center;" class="about-containers">
+            <footer>
+              <nav>
+                <div class="nav-links-container">
+                  <ul class="nav-links">
+                    <li><a href="./index.html">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="./project.html">Projects</a></li>
+                    <li><a href="./contact.html">Contact</a></li>
+                  </ul>
+                </div>
+              </nav>
+              <p>Copyright &#169; 2024 AmiiCAD || Design and created by <a href="https://www.linkedin.com/company/rixi-lab/" style="text-decoration: none; color: #555555;">Rixi Lab</a>. All Rights Reserved.</p>
+            </footer>
+          </div>
+        </div>
+      </section>
+      <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AmiiCAD | Amit Sharma</title>
+    <link rel="website icon" type="jpg" href="/Images/logo.jpg">
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/popup.css" />
+    <link rel="stylesheet" href="/css/mediaqueries.css" />
+  </head>
+
+  <style>
+    footer {
+     height: 26vh;
+     margin: 0 1rem;
+    }
+
+    footer p {
+     text-align: center;
+    }
+    nav, .nav-links {
+      display: flex;
+    }
+
+    nav {
+      justify-content: space-around;
+      align-items: center;
+      height: 17vh;
+    }
+
+    .nav-links {
+      gap: 2rem;
+      list-style: none;
+      font-size: 1.5rem;
+    }
+    #projects p button{
+      font-weight: 600;
+      transition: all 300ms ease;
+      padding: 1vh;
+      width: 5rem;
+      border-radius: 2rem;
+    }
+    #projects p button:hover{
+      background: rgb(53, 53, 53);
+      color: white;
+      cursor: pointer;
+    }
+    
+
+    body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.slider {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.slides {
+    display: flex;
+    width: 400%;
+    /* height: 100%; */
+    animation: slide 12s infinite;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    transition: 0.5s;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Keyframes for the slide animation */
+@keyframes slide {
+    0% { margin-left: 0%; }
+    25% { margin-left: 0%; }
+    30% { margin-left: -100%; }
+    50% { margin-left: -100%; }
+    55% { margin-left: -200%; }
+    75% { margin-left: -200%; }
+    80% { margin-left: -300%; }
+    100% { margin-left: -300%; }
+}
+
+
+  </style>
+  <body>
+    <nav id="desktop-nav">
+      
+      <div class="logo"><img src="/Images/nav logo.jpg" alt="" width="25%"></div>
+      <div>
+        <ul class="nav-links">
+          <li><a style="background-color: gray; color: white; border-radius: 30px; padding: 5px 10px;" href="#about">Home</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="./project.html">Projects</a></li>
+          <li><a href="./contact.html">Contact</a></li>
+          <li><a href="/auth/login">Log in</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav id="hamburger-nav">
+      <div class="logo"><img src="/Images/nav logo.jpg" alt="" width="20%"></div>
+      <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="menu-links">
+          <li><a href="#about" onclick="toggleMenu()">Home</a></li>
+          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+          <li><a href="./project.html" onclick="toggleMenu()">Projects</a></li>
+          <li><a href="./contact.html" onclick="toggleMenu()">Contact</a></li>
+          <li><a href="/login" onclick="toggleMenu()">Log in</a></li>
+        </div>
+      </div>
+    </nav>
+
+    <div class="slider">
+      <div class="slides">
+          <!-- Image slides -->
+          <div class="slide"><img src="/Images/image2.jpg" alt="Image 1"></div>
+          <div class="slide"><img src="/Images/image1.jpg" alt="Image 2"></div>
+          <div class="slide"><img src="/Images/image2.jpg" alt="Image 3"></div>
+          <div class="slide"><img src="/Images/image1.jpg" alt="Image 4"></div>
+      </div>
+  </div>
+
+
+
+
+    <section id="profile">
+      <div class="section__pic-container">
+        <img style="border-radius: 50%; border: 2px solid rgb(53, 53, 53);" src="/Images/Screenshot 2024-08-28 235259.png" alt="Rajnish Sharma's profile picture" />
+      </div>
+      <div class="section__text">
+        <p class="section__text__p1">Hello, I'm</p>
+        <h1 class="title">Amit Sharma</h1>
+        <p class="section__text__p2">Design Engineer</p>
+        <div class="btn-container">
+          <button
+            class="btn btn-color-2"
+            onclick="window.open('Amit_Resume.pdf')"
+          >
+            Download CV
+          </button>
+          <button class="btn btn-color-1" onclick="location.href='mailto:contact.amiicad@gmail.com'">
+            Hire me
+          </button>
+        </div>
+        <div id="socials-container">
+          <img
+            src="/Images/linkedin.png"
+            alt="My LinkedIn profile"
+            class="icon"
+            onclick="location.href='https://www.linkedin.com/in/amit-sharma-42a543285?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app'"
+          />
+          <!-- <img
+            src="/Images/github.png"
+            alt="My Github profile"
+            class="icon"
+            onclick="location.href='https://github.com/rajnishsharma07'"
+          /> -->
+          <img
+            src="/Images/instagram.png"
+            alt="My Instagram profile"
+            class="icon"
+            onclick="location.href='https://www.instagram.com/2a0m0i1t?igsh=aWo5czk5aGN3YXFj'"
+          />
+          <!-- <img
+            src="/Images/facebook.png"
+            alt="My Github profile"
+            class="icon"
+            onclick="location.href='https://www.facebook.com/iamrajnish07'"
+          /> -->
+          <img
+            src="/Images/whatsapp.png"
+            alt="My Whatsapp profile"
+            class="icon"
+            onclick="location.href='https://wa.me/919874189825'"
+          />
+          <!-- <img
+            src="/Images/twitter.png"
+            alt="My Github profile"
+            class="icon"
+            onclick="location.href='https://twitter.com/Iamrajnish07'"
+          /> -->
+        </div>
+      </div>
+    </section>
+    <section id="about">
+      <p class="section__text__p1">Get To Know More</p>
+      <h1 class="title">About Me</h1>
+      <div class="section-container">
+        <div class="section__pic-container">
+          <img
+            style="border: 2px solid rgb(53, 53, 53);"
+            src="/Images/Screenshot 2024-08-28 235259.png"
+            alt="Profile picture"
+            class="about-pic"
+          />
+        </div>
+        <div class="about-details-container">
+          <div class="about-containers">
+            <div class="details-container">
+              <img
+                src="/Images/experience.png"
+                alt="Experience icon"
+                class="icon"
+              />
+              <h3>Experience</h3>
+              <p>1+ years <br />in Designing</p>
+            </div>
+            <div class="details-container">
+              <img
+                src="/Images/education.png"
+                alt="Education icon"
+                class="icon"
+              />
+              <h3>Education</h3>
+              <p>Diploma in <br />Mechanical Engineering</p>
+            </div>
+          </div>
+          <div class="text-container">
+            <p style="font-size: 20px;">
+              Hi, it's Amit Sharma from Kolkata and I have experience in CAD Design, Product Design, 3D Rendering, 3D Modeling, and 3D Animation. So if you want to hire a CAD designer I may be a good choice for you. Please give me a chance. You can contact me through my social media accounts. <br> Thank you for your interest, and feel free to reach out to me with any questions or project inquiries.
+            </p>
+          </div>
+        </div>
+      </div>
+      <img
+        src="/Images/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#experience'"
+      />
+    </section>
+    <section id="experience">
+      <p class="section__text__p1">Explore My</p>
+      <h1 class="title">Experience</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container">
+            <h2 class="experience-sub-title">Software</h2>
+            <div class="article-container">
+              <article>
+                <img
+                  src="/Images/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>2D & 3D AutoCAD</h3>
+                  <p>Intermediate</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="/Images/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Solidworks</h3>
+                  <p>Experienced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="/Images/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>CNC Programming</h3>
+                  <p>Intermediate</p>
+                </div>
+              </article>
+              
+            </div>
+          </div>
+          <div class="details-container">
+            <h2 class="experience-sub-title">Designing</h2>
+            <div class="article-container">
+              <article>
+                <img
+                  src="/Images/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>2D Drafting</h3>
+                  <p>Experienced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="/Images/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>3D Modeling</h3>
+                  <p>Experienced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="/Images/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>3D Rendering</h3>
+                  <p>Basic</p>
+                </div>
+              </article>
+              
+            </div>
+          </div>
+          <div class="details-container">
+            <h2 class="experience-sub-title">Other Applications</h2>
+            <div class="article-container">
+              <article>
+                <img
+                  src="/Images/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>MS Word</h3>
+                  <p>Experienced</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="/Images/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>MS Excel</h3>
+                  <p>Basic</p>
+                </div>
+              </article>
+              <article>
+                <img
+                  src="/Images/checkmark.png"
+                  alt="Experience icon"
+                  class="icon"
+                />
+                <div>
+                  <h3>Video Editing</h3>
+                  <p>Intermediate</p>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+      <img
+        src="/Images/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#projects'"
+      />
+    </section>
+    <section id="projects">
+      <p class="section__text__p1">Browse My Recent <button onclick="location.href='./project.html'">View All</button></p>
+      <h1 class="title">Projects</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="/Images/RC Helicopter.jpg"
+                alt="Project 1"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">RC Helicopter</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo13.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="/Images/V6 Turbo Charge.jpg"
+                alt="Project 2"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">V6 Turbo Charge</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo14.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="/Images/Heat Exchanger.jpg"
+                alt="Project 3"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Heat Exchanger</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="openPopup()"
+              >
+                More Info
+            </button>
+            </div>
+          </div>
+        </div>
+        <div class="about-containers">
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="/Images/Sheet Metal Cutting Machine.jpg"
+                alt="Project 1"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Sheet Cutting Machine</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo10.html'"
+              >
+              More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="/Images/Water Tank.jpg"
+                alt="Project 2"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Water Tank</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo11.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="/Images/Drone2.jpg"
+                alt="Project 3"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Drone</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo9.html'"
+              >
+              More Info
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="/Images/Hydraulic Press.jpg"
+                alt="Project 1"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Hydraulic Press</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo4.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="/Images/hydraulic press break bending machine.jpg"
+                alt="Project 2"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Hydraulic Bending Machine</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo7.html'"
+              >
+                More Info
+              </button>
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="/Images/Universal joint.jpg"
+                alt="Project 3"
+                class="project-img"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Universal Joint</h2>
+            <div class="btn-container">
+              <button
+                class="btn btn-color-2 project-btn"
+                onclick="location.href='./moreinfo6.html'"
+              >
+                More Info
+            </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="about-containers">
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img
+              src="/Images/Hopper Feeder.jpg"
+              alt="Project 1"
+              class="project-img"
+            />
+          </div>
+          <h2 class="experience-sub-title project-title">Hopper Feeder</h2>
+          <div class="btn-container">
+            <button
+              class="btn btn-color-2 project-btn"
+              onclick="location.href='./moreinfo1.html'"
+            >
+              More Info
+            </button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img
+              src="/Images/Screw Conveyor.jpg"
+              alt="Project 2"
+              class="project-img"
+            />
+          </div>
+          <h2 class="experience-sub-title project-title">Screw Conveyor</h2>
+          <div class="btn-container">
+            <button
+              class="btn btn-color-2 project-btn"
+              onclick="location.href='./moreinfo8.html'"
+            >
+              More Info
+            </button>
+          </div>
+        </div>
+        <div class="details-container color-container">
+          <div class="article-container">
+            <img
+              src="/Images/Screw Water Turbine.jpg"
+              alt="Project 3"
+              class="project-img"
+            />
+          </div>
+          <h2 class="experience-sub-title project-title">Screw WaterTurbine</h2>
+          <div class="btn-container">
+            <button
+              class="btn btn-color-2 project-btn"
+              onclick="location.href='./moreinfo3.html'"
+            >
+              More Info
+          </button>
+          </div>
+        </div>
+      </div>
+      <img
+        src="/Images/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#contact'"
+      />
+    </section>
+    <section id="contact">
+      <p class="section__text__p1">Get in Touch</p>
+      <h1 class="title">Contact Me</h1>
+      <div class="contact-info-upper-container">
+        <div class="contact-info-container">
+          <img
+            src="/Images/email.png"
+            alt="Email icon"
+            class="icon contact-icon email-icon"
+          />
+          <p><a href="mailto:contact.amiicad@gmail.com">Email</a></p>
+        </div>
+        <div class="contact-info-container">
+          <img
+            src="/Images/linkedin.png"
+            alt="LinkedIn icon"
+            class="icon contact-icon"
+          />
+          <p><a href="https://www.linkedin.com/in/amit-sharma-42a543285?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">LinkedIn</a></p>
+        </div>
+        <div class="contact-info-container">
+          <img
+            src="/Images/instagram.png"
+            alt="LinkedIn icon"
+            class="icon contact-icon"
+          />
+          <p><a href="https://www.instagram.com/2a0m0i1t?igsh=aWo5czk5aGN3YXFj">Instagram</a></p>
+        </div>
+        <!-- <div class="contact-info-container">
+          <img
+            src="/Images/facebook.png"
+            alt="LinkedIn icon"
+            class="icon contact-icon"
+          />
+          <p><a href="https://www.facebook.com/iamrajnish07">Facebook</a></p>
+        </div> -->
+        <div class="contact-info-container">
+          <img
+            src="/Images/whatsapp.png"
+            alt="LinkedIn icon"
+            class="icon contact-icon"
+          />
+          <p><a href="https://wa.me/919874189825">Whatsapp</a></p>
+        </div>
+        <!-- <div class="contact-info-container">
+          <img
+            src="/Images/twitter.png"
+            alt="LinkedIn icon"
+            class="icon contact-icon"
+          />
+          <p><a href="https://twitter.com/Iamrajnish07">Twitter(X)</a></p>
+        </div> -->
+      </div>
+    </section>
+    <footer>
+      <nav>
+        <div class="nav-links-container">
+          <ul class="nav-links">
+            <li><a href="#desktop-nav">Home</a></li>
+            <li><a href="./project.html">Projects</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="./contact.html">Contact</a></li>
+            <li><a href="#about">About</a></li>
+          </ul>
+        </div>
+      </nav>
+      <p>Copyright &#169; 2025 AmiiCAD || Design and created by <a href="https://rixilab.tech" style="text-decoration: none; color: #555555;">Rixi Lab</a>. All Rights Reserved.</p>
+    </footer>
+    <script src="/js/script.js"></script>
+    <script src="/js/popup.js"></script>
+
+
+
+
+    <!-- Overlay + Popup -->
+  <div class="overlay" id="popupOverlay">
+    <div class="popup">
+      <div class="close-btn" onclick="closePopup()">✖</div>
+
+      <!-- Left Section -->
+      <div class="popup-left">
+        <!-- 3D Model -->
+        <iframe title="Aloe vera plant" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/66c6699e50ab4863989777f920a981dd/embed"> </iframe>
+        
+        <!-- Image Slider -->
+        <div class="image-slider">
+          <img src="/Images/Heat Exchanger.jpg" alt="Image1">
+          <img src="/Images/Heat Exchanger.jpg" alt="Image2">
+          <img src="/Images/Heat Exchanger.jpg" alt="Image3">
+        </div>
+      </div>
+
+      <!-- Right Section -->
+      <div class="popup-right">
+        <div>
+          <h1>Heat Exchanger</h1>
+          <div class="content">
+            <p>A heat exchanger is a device designed to efficiently transfer heat between two or more fluids (liquids, gases, or a combination of both) without mixing them. Heat exchangers are widely used in industries, power plants, refrigeration, air conditioning, automotive systems, and many engineering applications.</p>
+            <p><b>Working Principle:</b> The basic principle of a heat exchanger is thermal conduction and convection. One fluid carries heat, which is transferred through a solid wall (usually metal) to another fluid. Depending on the flow arrangement, heat exchangers can be parallel flow, counterflow, or crossflow.</p>
+            <h4>Shell and Tube Heat Exchanger</h4>
+            <ul>
+              <li>Consists of a series of tubes inside a cylindrical shell.</li>
+              <li>One fluid flows inside the tubes while the other flows around them within the shell.</li>
+              <li>Commonly used in power plants, chemical industries, and refineries.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="buttons">
+          <button>Download</button>
+          <button>Share</button>
+          <button onclick="closePopup()">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  </body>
+</html>

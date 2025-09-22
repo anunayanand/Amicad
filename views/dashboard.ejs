@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { display: flex; min-height: 100vh; overflow-x: hidden; font-family: Arial, sans-serif; }
+    .sidebar { min-width: 220px; max-width: 220px; background-color: #343a40; color: white; padding: 20px; }
+    .sidebar a { display: block; color: white; padding: 10px 15px; margin-bottom: 10px; text-decoration: none; border-radius: 5px; cursor: pointer; }
+    .sidebar a.active, .sidebar a:hover { background-color: #495057; text-decoration: none; }
+    .content { flex-grow: 1; padding: 20px; }
+    .section { display: none; }
+    .section.active { display: block; }
+
+    /* Popup styling */
+.popup {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 90%;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.popup-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#existingImages div {
+  display: inline-block;
+  text-align: center;
+  margin: 4px;
+}
+
+#existingImages img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: border 0.2s;
+}
+
+#existingImages img:hover {
+  border: 2px solid #0d6efd;
+}
+
+#existingImages input[type="radio"],
+#existingImages input[type="checkbox"] {
+  margin-top: 4px;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>Admin Panel</h3>
+    <hr style="border-color: #495057;">
+    <a id="viewProductsLink" class="active">View Products</a>
+    <a id="uploadProductsLink">Upload Products</a>
+    <a href="/auth/logout">Logout</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <h1>📊 Admin Dashboard</h1>
+    <span>Welcome, <%= user ? user.username : "Guest" %>!</span>
+
+    <!-- Store products safely in a hidden div -->
+    <div id="productData" data-products='<%- JSON.stringify(images) %>' style="display:none;"></div>
+
+    <!-- View Products Section -->
+    <div id="viewProductsSection" class="section active">
+      <h2>View Products</h2>
+      <div class="row">
+        <% if (images && images.length > 0) { %>
+          <% images.forEach(product => { %>
+            <div class="col-md-4 mb-3">
+              <div class="card">
+                <img src="<%= product.urls[0] %>" class="card-img-top" alt="<%= product.title %>">
+                <div class="card-body">
+                  <h5 class="card-title"><%= product.title %></h5>
+                  <p class="card-text"><%= product.description %></p>
+                  <button class="btn btn-primary btn-sm" onclick="openEditPopup('<%= product._id %>')">Edit</button>
+                  <form action="/delete/<%= product._id %>?_method=DELETE" method="POST" class="d-inline">
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          <% }) %>
+        <% } else { %>
+          <p>No products found. Upload some!</p>
+        <% } %>
+      </div>
+    </div>
+
+    <!-- Upload Products Section -->
+    <div id="uploadProductsSection" class="section">
+      <h2>Upload Products</h2>
+      <form action="/upload" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="images" class="form-label">Upload Images</label>
+          <input class="form-control" type="file" id="images" name="images" accept="image/*" multiple required>
+        </div>
+        <button type="submit" class="btn btn-success">Upload</button>
+      </form>
+    </div>
+
+   <!-- Edit Product Popup -->
+<!-- Edit Product Popup -->
+<div id="editProductPopup" class="popup" style="display:none;">
+  <div class="popup-content p-3">
+    <div class="popup-header mb-3">
+      <h5>Edit Product</h5>
+      <button type="button" class="btn-close" aria-label="Close" onclick="closeEditPopup()"></button>
+    </div>
+
+    <form id="editProductForm" method="POST" enctype="multipart/form-data">
+      <div class="mb-2">
+        <label for="editTitle" class="form-label">Title</label>
+        <input type="text" class="form-control form-control-sm" id="editTitle" name="title" required>
+      </div>
+
+      <div class="mb-2">
+        <label for="editDescription" class="form-label">Description</label>
+        <textarea class="form-control form-control-sm" id="editDescription" name="description" rows="2" required></textarea>
+      </div>
+
+      <div id="existingImages" class="mb-2">
+        <p style="font-size:0.9rem; margin-bottom:5px;">Main image & delete options:</p>
+      </div>
+
+      <div class="mb-2">
+        <label for="editImages" class="form-label">Add new images</label>
+        <input type="file" class="form-control form-control-sm" id="editImages" name="images" multiple>
+      </div>
+
+      <button type="submit" class="btn btn-success btn-sm w-100">Update Product</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+  </div>
+
+  <script>
+    // Sidebar toggle
+    const viewLink = document.getElementById("viewProductsLink");
+    const uploadLink = document.getElementById("uploadProductsLink");
+    const viewSection = document.getElementById("viewProductsSection");
+    const uploadSection = document.getElementById("uploadProductsSection");
+
+    function showSection(section) {
+      viewSection.classList.remove("active");
+      uploadSection.classList.remove("active");
+      viewLink.classList.remove("active");
+      uploadLink.classList.remove("active");
+
+      if(section==="view") { viewSection.classList.add("active"); viewLink.classList.add("active"); }
+      if(section==="upload") { uploadSection.classList.add("active"); uploadLink.classList.add("active"); }
+    }
+
+    viewLink.addEventListener("click", ()=>showSection("view"));
+    uploadLink.addEventListener("click", ()=>showSection("upload"));
+    showSection("view");
+
+const productsContainer = document.getElementById("productData");
+const products = JSON.parse(productsContainer.dataset.products);
+
+function openEditPopup(productId) {
+  const popup = document.getElementById("editProductPopup");
+  const form = document.getElementById("editProductForm");
+  const titleInput = document.getElementById("editTitle");
+  const descInput = document.getElementById("editDescription");
+  const existingDiv = document.getElementById("existingImages");
+  const mainInput = document.getElementById("mainImageIndex");
+
+  // Set form action
+  form.action = `/edit/${productId}?_method=PUT`;
+
+  // Find product by id
+  const product = products.find(p => p._id === productId);
+  if (!product) return alert("Product not found!");
+
+  titleInput.value = product.title;
+  descInput.value = product.description;
+
+  // Clear previous images
+  existingDiv.innerHTML = "";
+
+  product.urls.forEach((url, idx) => {
+    const wrapper = document.createElement("div");
+    wrapper.style.display = "inline-block";
+    wrapper.style.margin = "5px";
+    wrapper.style.textAlign = "center";
+
+    // Show image
+    const img = document.createElement("img");
+    img.src = url;
+    img.style.width = "100px";
+    img.style.height = "100px";
+    img.style.objectFit = "cover";
+    wrapper.appendChild(img);
+    wrapper.appendChild(document.createElement("br"));
+
+    // Radio button for main image
+    const mainRadio = document.createElement("input");
+    mainRadio.type = "radio";
+    mainRadio.name = "mainImageIndex";
+    mainRadio.value = idx;
+    if (idx === 0) mainRadio.checked = true; // default first image as main
+    wrapper.appendChild(mainRadio);
+    wrapper.appendChild(document.createTextNode(" Set as Main"));
+    wrapper.appendChild(document.createElement("br"));
+
+    // Checkbox for deletion
+    const delCheckbox = document.createElement("input");
+    delCheckbox.type = "checkbox";
+    delCheckbox.name = "deleteImages";
+    delCheckbox.value = idx;
+    wrapper.appendChild(delCheckbox);
+    wrapper.appendChild(document.createTextNode(" Delete"));
+
+    existingDiv.appendChild(wrapper);
+  });
+
+  popup.style.display = "block";
+}
+
+function closeEditPopup() {
+  document.getElementById("editProductPopup").style.display = "none";
+}
+
+
+
+   
+    function closeEditPopup(){
+      document.getElementById("editProductPopup").style.display="none";
+    }
+  </script>
+</body>
+</html>
