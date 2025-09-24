@@ -18,7 +18,7 @@ const upload = multer({ storage });
 // Upload route
 router.post("/", upload.array("images"), async (req, res) => {
   try {
-    const { title, description } = req.body;
+    const { title, description,downloadUrl } = req.body;
 
     // Map through all uploaded files
     const urls = req.files.map(file => file.path);
@@ -30,6 +30,7 @@ router.post("/", upload.array("images"), async (req, res) => {
       description,
       urls,      // Array of URLs
       publicIds, // Array of Cloudinary public IDs
+      downloadUrl
     });
 
     await newProduct.save();

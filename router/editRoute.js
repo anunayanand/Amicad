@@ -18,13 +18,14 @@ const upload = multer({ storage });
 // Update product
 router.put("/:id", upload.array("images"), async (req, res) => {
   try {
-    const { title, description, mainImageIndex, deleteImages } = req.body;
+    const { title, description, mainImageIndex, deleteImages ,downloadUrl} = req.body;
     const product = await Image.findById(req.params.id);
     if (!product) return res.status(404).send("Product not found");
 
     // Update title and description
     product.title = title;
     product.description = description;
+    product.downloadUrl = downloadUrl;
 
     // Delete selected images
     if (deleteImages) {

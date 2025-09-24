@@ -91,8 +91,6 @@
     80% { margin-left: -300%; }
     100% { margin-left: -300%; }
 }
-
-
   </style>
   <body>
     <nav id="desktop-nav">
@@ -101,9 +99,9 @@
       <div>
         <ul class="nav-links">
           <li><a style="background-color: gray; color: white; border-radius: 30px; padding: 5px 10px;" href="#about">Home</a></li>
-          <li><a href="#experience">Experience</a></li>
-          <li><a href="./project.html">Projects</a></li>
-          <li><a href="./contact.html">Contact</a></li>
+          <li><a href="/#experience">Experience</a></li>
+          <li><a href="/project">Projects</a></li>
+          <li><a href="/contact">Contact</a></li>
           <li><a href="/auth/login">Log in</a></li>
         </ul>
       </div>
@@ -117,11 +115,11 @@
           <span></span>
         </div>
         <div class="menu-links">
-          <li><a href="#about" onclick="toggleMenu()">Home</a></li>
-          <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-          <li><a href="./project.html" onclick="toggleMenu()">Projects</a></li>
-          <li><a href="./contact.html" onclick="toggleMenu()">Contact</a></li>
-          <li><a href="/login" onclick="toggleMenu()">Log in</a></li>
+          <li><a href="/#about" onclick="toggleMenu()">Home</a></li>
+          <li><a href="/#experience" onclick="toggleMenu()">Experience</a></li>
+          <li><a href="/project" onclick="toggleMenu()">Projects</a></li>
+          <li><a href="/contact" onclick="toggleMenu()">Contact</a></li>
+          <li><a href="/auth/login" onclick="toggleMenu()">Log in</a></li>
         </div>
       </div>
     </nav>
@@ -150,7 +148,7 @@
         <div class="btn-container">
           <button
             class="btn btn-color-2"
-            onclick="window.open('Amit_Resume.pdf')"
+            onclick="window.open('./Amit_Resume.pdf')"
           >
             Download CV
           </button>
@@ -375,7 +373,7 @@
         onclick="location.href='./#projects'"
       />
     </section>
-    <section id="projects">
+    <!-- <section id="projects">
       <p class="section__text__p1">Browse My Recent <button onclick="location.href='./project.html'">View All</button></p>
       <h1 class="title">Projects</h1>
       <div class="experience-details-container">
@@ -428,7 +426,7 @@
             <div class="btn-container">
               <button
                 class="btn btn-color-2 project-btn"
-                onclick="openPopup()"
+                onclick="openPopup()" 
               >
                 More Info
             </button>
@@ -613,7 +611,75 @@
         class="icon arrow"
         onclick="location.href='./#contact'"
       />
-    </section>
+    </section> -->
+
+<section id="projects">
+  <p class="section__text__p1">
+    Browse My Recent 
+    <button onclick="location.href='/project'">View All</button>
+  </p>
+  <h1 class="title">Projects</h1>
+
+  <div class="projects-grid">
+    <% images.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .forEach(project => { %>
+      <div class="project-card" style="border: 2px solid  rgb(163, 163, 163); 
+    background: rgb(250, 250, 250);">
+        <div class="project-image-container">
+          <img src="<%= project.urls[0] %>" alt="<%= project.title %>" class="project-img">
+        </div>
+        <h3 class="project-title" ><%= project.title %></h3>
+       <button class="btn btn-primary project-btn" 
+        data-id="<%= project._id %>" 
+        data-title="<%= project.title %>" 
+        data-description="<%= project.description %>" 
+        data-download="<%= project.downloadUrl %>" 
+        data-urls='<%= JSON.stringify(project.urls) %>'>
+  View More
+</button>
+
+
+        <% if(user && user.isAdmin) { %>
+          <label>
+            Show on Home:
+            <input type="checkbox" class="toggle-home" data-id="<%= project._id %>" <%= project.showOnHome ? 'checked' : '' %> />
+          </label>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+
+
+
+<!-- Product Popup -->
+<div class="overlay" id="productPopupOverlay">
+  <div class="popup">
+    <div class="popup-left">
+      <img id="popupMainImage" src="" alt="Product Image" class="main-popup-image">
+      <div class="popup-image-gallery" id="popupImageGallery"></div>
+    </div>
+    <div class="popup-right">
+      <h2 id="popupTitle" style="text-align: center;"></h2>
+      <p id="popupDescription"></p>
+      <div class="popup-buttons">
+        <a id="popupDownloadBtn" href="#" target="_blank">
+          <button class="btn btn-success">Download</button>
+        </a>
+        <button class="btn btn-primary" onclick="shareProduct()">Share</button>
+        <button class="btn btn-secondary" onclick="closeProductPopup()">Close</button>
+      </div>
+    </div>
+    <div class="close-btn" onclick="closeProductPopup()">✖</div>
+  </div>
+</div>
+
+
+
+
+
+
     <section id="contact">
       <p class="section__text__p1">Get in Touch</p>
       <h1 class="title">Contact Me</h1>
@@ -673,7 +739,7 @@
         <div class="nav-links-container">
           <ul class="nav-links">
             <li><a href="#desktop-nav">Home</a></li>
-            <li><a href="./project.html">Projects</a></li>
+            <li><a href="./project">Projects</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="./contact.html">Contact</a></li>
             <li><a href="#about">About</a></li>
@@ -683,53 +749,66 @@
       <p>Copyright &#169; 2025 AmiiCAD || Design and created by <a href="https://rixilab.tech" style="text-decoration: none; color: #555555;">Rixi Lab</a>. All Rights Reserved.</p>
     </footer>
     <script src="/js/script.js"></script>
-    <script src="/js/popup.js"></script>
+    <!-- <script src="/js/popup.js"></script> -->
+\
 
 
 
+
+<script>
+  // Attach popup functionality to all "View More" buttons
+ document.querySelectorAll(".project-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const overlay = document.getElementById('productPopupOverlay');
+    overlay.style.display = 'flex';
+
+    const title = btn.dataset.title;
+    const description = btn.dataset.description;
+    const download = btn.dataset.download;
+    const urls = JSON.parse(btn.dataset.urls);
+
+    document.getElementById('popupTitle').innerText = title;
+    document.getElementById('popupDescription').innerText = description;
+    document.getElementById('popupDownloadBtn').href = download;
+
+    const mainImage = document.getElementById('popupMainImage');
+    mainImage.src = urls[0];
+
+    const gallery = document.getElementById('popupImageGallery');
+    gallery.innerHTML = '';
+    urls.forEach(url => {
+      const img = document.createElement('img');
+      img.src = url;
+      img.style.cursor = 'pointer';
+      img.onclick = () => mainImage.src = url;
+      gallery.appendChild(img);
+    });
+
+    window.currentProduct = { title, description, download, urls };
+  });
+});
+
+  function closeProductPopup() {
+    document.getElementById('productPopupOverlay').style.display = 'none';
+  }
+
+  function shareProduct() {
+    if (!window.currentProduct) return;
+    const shareText = `Check out this product: ${window.location.href}#product-${window.currentProduct._id}`;
+    if (navigator.share) {
+      navigator.share({
+        title: window.currentProduct.title,
+        text: shareText,
+        url: window.location.href
+      }).catch(console.error);
+    } else {
+      navigator.clipboard.writeText(shareText).then(() => alert('Product link copied!'));
+    }
+  }
+</script>
 
     <!-- Overlay + Popup -->
-  <div class="overlay" id="popupOverlay">
-    <div class="popup">
-      <div class="close-btn" onclick="closePopup()">✖</div>
-
-      <!-- Left Section -->
-      <div class="popup-left">
-        <!-- 3D Model -->
-        <iframe title="Aloe vera plant" frameborder="0" allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share src="https://sketchfab.com/models/66c6699e50ab4863989777f920a981dd/embed"> </iframe>
-        
-        <!-- Image Slider -->
-        <div class="image-slider">
-          <img src="/Images/Heat Exchanger.jpg" alt="Image1">
-          <img src="/Images/Heat Exchanger.jpg" alt="Image2">
-          <img src="/Images/Heat Exchanger.jpg" alt="Image3">
-        </div>
-      </div>
-
-      <!-- Right Section -->
-      <div class="popup-right">
-        <div>
-          <h1>Heat Exchanger</h1>
-          <div class="content">
-            <p>A heat exchanger is a device designed to efficiently transfer heat between two or more fluids (liquids, gases, or a combination of both) without mixing them. Heat exchangers are widely used in industries, power plants, refrigeration, air conditioning, automotive systems, and many engineering applications.</p>
-            <p><b>Working Principle:</b> The basic principle of a heat exchanger is thermal conduction and convection. One fluid carries heat, which is transferred through a solid wall (usually metal) to another fluid. Depending on the flow arrangement, heat exchangers can be parallel flow, counterflow, or crossflow.</p>
-            <h4>Shell and Tube Heat Exchanger</h4>
-            <ul>
-              <li>Consists of a series of tubes inside a cylindrical shell.</li>
-              <li>One fluid flows inside the tubes while the other flows around them within the shell.</li>
-              <li>Commonly used in power plants, chemical industries, and refineries.</li>
-            </ul>
-          </div>
-        </div>
-        <div class="buttons">
-          <button>Download</button>
-          <button>Share</button>
-          <button onclick="closePopup()">Close</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
+ 
 
   </body>
 </html>

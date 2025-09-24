@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects | AmiiCAD | Amit Sharma</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="website icon" type="jpg" href="./Images/logo.jpg">
-    <link rel="stylesheet" href="mediaqueries.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="website icon" type="jpg" href="/Images/logo.jpg">
+    <link rel="stylesheet" href="/css/mediaqueries.css" />
 
 </head>
 <style>
@@ -38,11 +38,11 @@
         <div class="logo"><b>AmiiCAD</b></div>
         <div>
           <ul class="nav-links">
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="#experience">Experience</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/#experience">Experience</a></li>
             <li><a style="background-color: gray; color: white; border-radius: 30px; padding: 5px 10px;" href="./project.html">Projects</a></li>
             <li><a href="./contact.html">Contact</a></li>
-            <li><a href="#contact">Log in</a></li>
+            <li><a href="/#contact">Log in</a></li>
           </ul>
         </div>
       </nav>
@@ -55,256 +55,69 @@
             <span></span>
           </div>
           <div class="menu-links">
-            <li><a href="./index.html" onclick="toggleMenu()">Home</a></li>
-            <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
-            <li><a href="./project.html" onclick="toggleMenu()">Projects</a></li>
-            <li><a href="./contact.html" onclick="toggleMenu()">Contact</a></li>
-            <li><a href="#contact" onclick="toggleMenu()">Log in</a></li>
+            <li><a href="/" onclick="toggleMenu()">Home</a></li>
+            <li><a href="/#experience" onclick="toggleMenu()">Experience</a></li>
+            <li><a href="/project" onclick="toggleMenu()">Projects</a></li>
+            <li><a href="/contact" onclick="toggleMenu()">Contact</a></li>
+            <li><a href="/#contact" onclick="toggleMenu()">Log in</a></li>
           </div>
         </div>
       </nav>
 
-
-      
-
       <section id="projects">
-        <p class="section__text__p1">Browse My All Recent</p>
-        <h1 class="title">Projects</h1>
-        <div class="experience-details-container">
+  <p class="section__text__p1">
+    Browse My All Recent
+  </p>
+  <h1 class="title">Projects</h1>
 
-          <div class="about-containers">
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/RC Helicopter.jpg"
-                alt="Project 1"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">RC Helicopter</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo13.html'"
-              >
-                More Info
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/V6 Turbo Charge.jpg"
-                alt="Project 2"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">V6 Turbo Charge</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo14.html'"
-              >
-                More Info
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/Heat Exchanger.jpg"
-                alt="Project 3"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Heat Exchanger</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo15.html'"
-              >
-                More Info
-            </button>
-            </div>
-          </div>
+  <div class="projects-grid">
+    <% images.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .forEach(project => { %>
+      <div class="project-card">
+        <div class="project-image-container">
+          <img src="<%= project.urls[0] %>" alt="<%= project.title %>" class="project-img">
         </div>
+        <h3 class="project-title"><%= project.title %></h3>
+       <button class="btn btn-primary project-btn" 
+        data-id="<%= project._id %>" 
+        data-title="<%= project.title %>" 
+        data-description="<%= project.description %>" 
+        data-download="<%= project.downloadUrl %>" 
+        data-urls='<%= JSON.stringify(project.urls) %>'>
+  View More
+</button>
 
 
-
-
-        <div class="about-containers">
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/Sheet Metal Cutting Machine.jpg"
-                alt="Project 1"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Sheet Cutting Machine</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo10.html'"
-              >
-              More Info
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/Water Tank.jpg"
-                alt="Project 2"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Water Tank</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo11.html'"
-              >
-                More Info
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/Drone2.jpg"
-                alt="Project 3"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Drone</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo9.html'"
-              >
-              More Info
-              </button>
-            </div>
-          </div>
-          
-        </div>
-        <div class="about-containers">
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/Hydraulic Press.jpg"
-                alt="Project 1"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Hydraulic Press</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo4.html'"
-              >
-                More Info
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/hydraulic press break bending machine.jpg"
-                alt="Project 2"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Hydraulic Bending Machine</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo7.html'"
-              >
-                More Info
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/Universal joint.jpg"
-                alt="Project 3"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Universal Joint</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo6.html'"
-              >
-                More Info
-            </button>
-            </div>
-          </div>
-        </div>
-        <div class="about-containers">
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/Hopper Feeder.jpg"
-                alt="Project 1"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Hopper Feeder</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo1.html'"
-              >
-                More Info
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/Screw Conveyor.jpg"
-                alt="Project 2"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Screw Conveyor</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo8.html'"
-              >
-                More Info
-              </button>
-            </div>
-          </div>
-          <div class="details-container color-container">
-            <div class="article-container">
-              <img
-                src="./Images/Screw Water Turbine.jpg"
-                alt="Project 3"
-                class="project-img"
-              />
-            </div>
-            <h2 class="experience-sub-title project-title">Screw WaterTurbine</h2>
-            <div class="btn-container">
-              <button
-                class="btn btn-color-2 project-btn"
-                onclick="location.href='./moreinfo3.html'"
-              >
-                More Info
-            </button>
-            </div>
-          </div>
-        </div>
-         
-
-
-
+        <% if(user && user.isAdmin) { %>
+          <label>
+            Show on Home:
+            <input type="checkbox" class="toggle-home" data-id="<%= project._id %>" <%= project.showOnHome ? 'checked' : '' %> />
+          </label>
+        <% } %>
+      </div>
+    <% }) %>
+  </div>
+</section>
+<div class="overlay" id="productPopupOverlay">
+  <div class="popup">
+    <div class="popup-left">
+      <img id="popupMainImage" src="" alt="Product Image" class="main-popup-image">
+      <div class="popup-image-gallery" id="popupImageGallery"></div>
+    </div>
+    <div class="popup-right">
+      <h2 id="popupTitle"></h2>
+      <p id="popupDescription"></p>
+      <div class="popup-buttons">
+        <a id="popupDownloadBtn" href="#" target="_blank">
+          <button class="btn btn-success">Download</button>
+        </a>
+        <button class="btn btn-primary" onclick="shareProduct()">Share</button>
+        <button class="btn btn-secondary" onclick="closeProductPopup()">Close</button>
+      </div>
+    </div>
+    <div class="close-btn" onclick="closeProductPopup()">✖</div>
+  </div>
+</div>
 
 
 
@@ -315,11 +128,11 @@
               <nav>
                 <div class="nav-links-container">
                   <ul class="nav-links">
-                    <li><a href="./index.html">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="./project.html">Projects</a></li>
-                    <li><a href="./contact.html">Contact</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/#about">About</a></li>
+                    <li><a href="/#experience">Experience</a></li>
+                    <li><a href="/project">Projects</a></li>
+                    <li><a href="/contact">Contact</a></li>
                   </ul>
                 </div>
               </nav>
@@ -328,6 +141,56 @@
           </div>
         </div>
       </section>
-      <script src="script.js"></script>
+      <script>
+       // Attach popup functionality to all "View More" buttons
+ document.querySelectorAll(".project-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const overlay = document.getElementById('productPopupOverlay');
+    overlay.style.display = 'flex';
+
+    const title = btn.dataset.title;
+    const description = btn.dataset.description;
+    const download = btn.dataset.download;
+    const urls = JSON.parse(btn.dataset.urls);
+
+    document.getElementById('popupTitle').innerText = title;
+    document.getElementById('popupDescription').innerText = description;
+    document.getElementById('popupDownloadBtn').href = download;
+
+    const mainImage = document.getElementById('popupMainImage');
+    mainImage.src = urls[0];
+
+    const gallery = document.getElementById('popupImageGallery');
+    gallery.innerHTML = '';
+    urls.forEach(url => {
+      const img = document.createElement('img');
+      img.src = url;
+      img.style.cursor = 'pointer';
+      img.onclick = () => mainImage.src = url;
+      gallery.appendChild(img);
+    });
+
+    window.currentProduct = { title, description, download, urls };
+  });
+});
+
+  function closeProductPopup() {
+    document.getElementById('productPopupOverlay').style.display = 'none';
+  }
+
+  function shareProduct() {
+    if (!window.currentProduct) return;
+    const shareText = `Check out this product: ${window.location.href}#product-${window.currentProduct._id}`;
+    if (navigator.share) {
+      navigator.share({
+        title: window.currentProduct.title,
+        text: shareText,
+        url: window.location.href
+      }).catch(console.error);
+    } else {
+      navigator.clipboard.writeText(shareText).then(() => alert('Product link copied!'));
+    }
+  }
+</script>
 </body>
 </html>

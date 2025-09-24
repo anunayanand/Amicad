@@ -63,6 +63,7 @@ a:hover {
 .hamburger-menu {
   position: relative;
   display: inline-block;
+  z-index: 10;
 }
 
 .hamburger-icon {
@@ -407,4 +408,206 @@ article .icon {
 
 .email-icon {
   height: 2.5rem;
+}
+
+
+  /* Projects Grid */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+    
+  }
+
+  .project-card {
+    background:pink;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  /* .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+  } */
+
+  .project-image-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    /* border-radius: 10px; */
+    margin-bottom: 10px;
+  }
+
+  .project-img {
+    /* width: 100%;
+    height: 100%; */
+    object-fit: cover;
+    transition: transform 0.3s;
+    cursor: pointer;
+  }
+
+  .project-img:hover {
+    transform: scale(1.05);
+  }
+
+  .project-title {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .project-btn {
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
+  }
+
+  /* Popup */
+  .overlay {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto;
+    padding: 2rem 0;
+  }
+
+  .popup {
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 900px;
+    width: 90%;
+    padding: 20px;
+    gap: 20px;
+    position: relative;
+  }
+
+  .popup-left {
+    flex: 1 1 300px;
+    min-width: 300px;
+  }
+
+  .popup-right {
+    flex: 1 1 300px;
+    min-width: 300px;
+  }
+
+  .main-popup-image {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .popup-image-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .popup-image-gallery img {
+    width: 60px; height: 60px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: border 0.2s;
+  }
+
+  .popup-image-gallery img:hover {
+    border-color: #0d6efd;
+  }
+
+  .popup-buttons {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  @media(max-width:768px){
+    .popup { flex-direction: column; align-items: center; }
+    .popup-left, .popup-right { width: 100%; }
+  }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(250px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+  padding: 2rem 0;
+}
+@media (max-width: 900px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 350px; /* controls card size */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project-image-container {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  border-radius: 15px;
+  margin-bottom: 1rem;
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+}
+
+.project-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.project-btn:hover {
+  background-color: #353535;
+  color: #fff;
 }
