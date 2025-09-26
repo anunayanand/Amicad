@@ -27,6 +27,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); // <-- Needed for JSON body parsing (toggle-home)
 app.use(methodOverride("_method"));
+app.use("/bootstrap", express.static(path.join(__dirname, "node_modules/bootstrap/dist")));
 
 // Session & Flash
 app.use(

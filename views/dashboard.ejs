@@ -17,6 +17,7 @@
       background-color: #343a40;
       color: white;
       padding: 20px;
+      cursor: pointer;
     }
     .sidebar h3 {
       color: #fff;
@@ -35,6 +36,7 @@
     .sidebar a:hover, .sidebar a.active {
       background-color: #495057;
       text-decoration: none;
+      cursor: pointer;
     }
     .content {
       flex-grow: 1;
@@ -65,6 +67,81 @@
     .popup-header { display: flex; justify-content: space-between; align-items: center; }
     #existingImages img { width: 80px; height: 80px; object-fit: cover; border-radius: 4px; cursor: pointer; margin-bottom: 5px; border: 2px solid transparent; transition: 0.2s; }
     #existingImages img:hover { border: 2px solid #0d6efd; }
+    /* Upload Section */
+#uploadProductsSection {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  max-width: 650px;
+  margin: auto;
+  transition: 0.3s;
+}
+#uploadProductsSection h2 {
+  font-weight: 700;
+  color: #212529;
+  margin-bottom: 20px;
+  text-align: center;
+}
+#uploadProductsSection .form-label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 6px;
+}
+#uploadProductsSection .form-control {
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  padding: 10px 14px;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+#uploadProductsSection .form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.15);
+}
+#uploadProductsSection textarea {
+  resize: none;
+}
+#uploadProductsSection input[type="file"] {
+  padding: 8px;
+  background: #f8f9fa;
+}
+#uploadProductsSection .btn-success {
+  width: 100%;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 10px;
+  font-size: 1rem;
+  transition: 0.2s;
+}
+#uploadProductsSection .btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(25,135,84,0.25);
+}
+
+/* Progress bar */
+#uploadProgressContainer {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #e9ecef;
+}
+#uploadProgress {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+.card-text::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+/* Reuse same popup styles */
+#logoutPopup .popup-content {
+  max-width: 360px;
+  text-align: center;
+}
+#logoutPopup p {
+  font-size: 0.9rem;
+  color: #495057;
+}
+
+
   </style>
 </head>
 <body>
@@ -80,15 +157,16 @@
 
   <!-- Main Content -->
   <div class="content">
-    <h1 class="mb-3">📊 Admin Dashboard</h1>
-    <span class="mb-4 d-block">Welcome, <%= user ? user.username : "Guest" %>!</span>
+    <h1 class="text-center"> Admin Dashboard Welcome, Amit Sharma</h1>
+    <hr>
+    <span class="mb-5 d-block"></span>
 
     <!-- Store products safely in hidden div -->
     <div id="productData" data-products='<%- JSON.stringify(images) %>' style="display:none;"></div>
 
     <!-- View Products Section -->
     <div id="viewProductsSection" class="section active">
-      <h2 class="mb-3">All Products</h2>
+      <h2 class="mb-4 ">All Products</h2>
       <div class="row g-3">
         <% if (images && images.length > 0) { %>
           <% images.forEach(product => { %>
@@ -97,7 +175,7 @@
                 <img src="<%= product.urls[0] %>" class="card-img-top" alt="<%= product.title %>">
                 <div class="card-body">
                   <h5 class="card-title"><%= product.title %></h5>
-                  <p class="card-text"><%= product.description %></p>
+                  <p class="card-text" style="overflow-y: scroll; "><%= product.description %></p>
 
                   <div class="form-check form-switch mb-2">
                     <input class="form-check-input toggle-home" type="checkbox" data-id="<%= product._id %>" <%= product.showOnHome ? "checked" : "" %>>
@@ -190,7 +268,7 @@
       </div>
     </div>
 
-  </div> <!-- content end -->
+  </div> 
 
   <script>
     // Sidebar toggle
@@ -340,6 +418,16 @@ document.querySelectorAll(".toggle-home").forEach(cb => {
     });
   });
 });
+function openLogoutPopup() {
+  document.getElementById("logoutPopup").style.display = "flex";
+}
+function closeLogoutPopup() {
+  document.getElementById("logoutPopup").style.display = "none";
+}
+function confirmLogout() {
+  window.location.href = "/admin/logout"; // change to your actual logout route
+}
+
 
 
   </script>

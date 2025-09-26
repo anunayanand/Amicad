@@ -500,7 +500,7 @@ article .icon {
   }
 
   .popup-right {
-    flex: 1 1 300px;
+    /* flex: 1 1 300px; */
     min-width: 300px;
   }
 
@@ -611,3 +611,4 @@ article .icon {
   background-color: #353535;
   color: #fff;
 }
+
