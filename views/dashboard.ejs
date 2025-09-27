@@ -51,6 +51,46 @@
       object-fit: cover;
     }
 
+    /* Fixed height for card */
+.product-card {
+  height: 420px; /* adjust as needed */
+  width: 400px; 
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure image doesn't shrink */
+.product-card img {
+  height: 180px;  /* fixed image height */
+  object-fit: cover;
+}
+
+/* Card body fills remaining space */
+.product-card .card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Description fixed height + hidden scrollbar */
+.product-description {
+  flex: 1;
+  max-height: 80px; /* adjust as needed */
+  overflow-y: auto;
+  margin-bottom: 10px;
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE/Edge */
+}
+.product-description::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari */
+}
+/* Make buttons equal width inside flex container */
+.product-card .d-flex .btn {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+
     /* Popup styling */
     .popup {
       position: fixed;
@@ -64,9 +104,94 @@
       z-index: 1000;
       box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
-    .popup-header { display: flex; justify-content: space-between; align-items: center; }
+    /* Header */
+.popup-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.popup-header h5 {
+  font-weight: 700;
+  color: #212529;
+  margin: 0;
+  text-align: center;
+}
+.popup-header .btn-close {
+  background: none;
+  border: none;
+}
+
+/* Labels */
+.popup-content .form-label {
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 6px;
+}
+
+/* Inputs */
+.popup-content .form-control {
+  border-radius: 10px;
+  border: 1px solid #dee2e6;
+  padding: 10px 14px;
+  transition: border 0.2s, box-shadow 0.2s;
+}
+.popup-content .form-control:focus {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 0.2rem rgba(13,110,253,0.15);
+}
+.popup-content textarea {
+  resize: none;
+}
+.popup-content input[type="file"] {
+  padding: 8px;
+  background: #f8f9fa;
+}.popup-content .btn-success {
+  width: 100%;
+  border-radius: 12px;
+  font-weight: 600;
+  padding: 10px;
+  font-size: 1rem;
+  transition: 0.2s;
+}
+.popup-content .btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(25,135,84,0.25);
+}
+
+/* Progress bar */
+#editProgressContainer {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #e9ecef;
+}
+#editProgress {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Images grid */
+#existingImages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+#existingImages img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: 0.2s;
+}
+#existingImages img:hover {
+  border-color: #0d6efd;
+  transform: scale(1.05);
+}
+    /* .popup-header { display: flex; justify-content: space-between; align-items: center; }
     #existingImages img { width: 80px; height: 80px; object-fit: cover; border-radius: 4px; cursor: pointer; margin-bottom: 5px; border: 2px solid transparent; transition: 0.2s; }
-    #existingImages img:hover { border: 2px solid #0d6efd; }
+    #existingImages img:hover { border: 2px solid #0d6efd; } */
     /* Upload Section */
 #uploadProductsSection {
   background: #ffffff;
@@ -171,23 +296,28 @@
         <% if (images && images.length > 0) { %>
           <% images.forEach(product => { %>
             <div class="col-md-4">
-              <div class="card shadow-sm">
-                <img src="<%= product.urls[0] %>" class="card-img-top" alt="<%= product.title %>">
-                <div class="card-body">
-                  <h5 class="card-title"><%= product.title %></h5>
-                  <p class="card-text" style="overflow-y: scroll; "><%= product.description %></p>
+             <div class="card shadow-sm product-card">
+  <img src="<%= product.urls[0] %>" class="card-img-top" alt="<%= product.title %>">
 
-                  <div class="form-check form-switch mb-2">
-                    <input class="form-check-input toggle-home" type="checkbox" data-id="<%= product._id %>" <%= product.showOnHome ? "checked" : "" %>>
-                    <label class="form-check-label">Show on Home</label>
-                  </div>
+  <div class="card-body">
+    <h5 class="card-title"><%= product.title %></h5>
+    <p class="card-text product-description"><%= product.description %></p>
 
-                  <button class="btn btn-primary btn-sm me-1" onclick="openEditPopup('<%= product._id %>')">Edit</button>
-                  <form action="/delete/<%= product._id %>?_method=DELETE" method="POST" class="d-inline">
-                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                  </form>
-                </div>
-              </div>
+    <div class="form-check form-switch mb-2">
+      <input class="form-check-input toggle-home" type="checkbox" data-id="<%= product._id %>" <%= product.showOnHome ? "checked" : "" %>>
+      <label class="form-check-label">Show on Home</label>
+    </div>
+
+   <div class="d-flex gap-2 mt-auto">
+  <button class="btn btn-primary btn-sm flex-fill" onclick="openEditPopup('<%= product._id %>')">Edit</button>
+  <form action="/delete/<%= product._id %>?_method=DELETE" method="POST" class="flex-fill">
+    <button type="submit" class="btn btn-danger btn-sm w-100">Delete</button>
+  </form>
+</div>
+
+  </div>
+</div>
+
             </div>
           <% }) %>
         <% } else { %>
@@ -227,46 +357,46 @@
     </div>
 
     <!-- Edit Product Popup -->
-    <div id="editProductPopup" class="popup" style="display:none;">
-      <div class="popup-content p-3">
-        <div class="popup-header mb-3">
-          <h5>Edit Product</h5>
-          <button type="button" class="btn-close" onclick="closeEditPopup()"></button>
+      <div id="editProductPopup" class="popup" style="display:none;">
+        <div class="popup-content p-3">
+          <div class="popup-header mb-3">
+            <h5>Edit Product</h5>
+            <button type="button" class="btn-close" onclick="closeEditPopup()">✖</button>
+          </div>
+
+          <form id="editProductForm" method="POST" enctype="multipart/form-data">
+            <div class="mb-2">
+              <label class="form-label">Title</label>
+              <input type="text" class="form-control form-control-sm" id="editTitle" name="title" required>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Description</label>
+              <textarea class="form-control form-control-sm" id="editDescription" name="description" rows="5" required></textarea>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Download URL</label>
+              <input type="text" class="form-control form-control-sm" id="editDownloadUrl" name="downloadUrl" required>
+            </div>
+
+            <div id="existingImages" class="mb-2">
+              <p style="font-size:0.9rem; margin-bottom:5px;">Main image & delete options:</p>
+            </div>
+
+            <div class="mb-2">
+              <label class="form-label">Add new images</label>
+              <input type="file" class="form-control form-control-sm" id="editImages" name="images" multiple>
+            </div>
+
+            <div class="progress mb-2" style="height:20px; display:none;" id="editProgressContainer">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width:0%" id="editProgress">0%</div>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-sm w-100">Update Product</button>
+          </form>
         </div>
-
-        <form id="editProductForm" method="POST" enctype="multipart/form-data">
-          <div class="mb-2">
-            <label class="form-label">Title</label>
-            <input type="text" class="form-control form-control-sm" id="editTitle" name="title" required>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label">Description</label>
-            <textarea class="form-control form-control-sm" id="editDescription" name="description" rows="2" required></textarea>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label">Download URL</label>
-            <input type="text" class="form-control form-control-sm" id="editDownloadUrl" name="downloadUrl" required>
-          </div>
-
-          <div id="existingImages" class="mb-2">
-            <p style="font-size:0.9rem; margin-bottom:5px;">Main image & delete options:</p>
-          </div>
-
-          <div class="mb-2">
-            <label class="form-label">Add new images</label>
-            <input type="file" class="form-control form-control-sm" id="editImages" name="images" multiple>
-          </div>
-
-          <div class="progress mb-2" style="height:20px; display:none;" id="editProgressContainer">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width:0%" id="editProgress">0%</div>
-          </div>
-
-          <button type="submit" class="btn btn-success btn-sm w-100">Update Product</button>
-        </form>
       </div>
-    </div>
 
   </div> 
 

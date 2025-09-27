@@ -426,10 +426,10 @@
       <p id="popupDescription"></p>
       <div class="popup-buttons" style="transition: none;">
         <a id="popupDownloadBtn" href="#" target="_blank">
-          <button class=" btn-success">Download</button>
+          <button class="btn btn-success">Download</button>
         </a>
-        <button class=" btn-primary" onclick="shareProduct()">Share</button>
-        <button class=" btn-secondary" onclick="closeProductPopup()">Close</button>
+        <button class="btn btn-primary" onclick="shareProduct()">Share</button>
+        <button class="btn btn-secondary" onclick="closeProductPopup()">Close</button>
       </div>
     </div>
     <div class="close-btn" onclick="closeProductPopup()">✖</div>
@@ -522,7 +522,7 @@
   btn.addEventListener("click", () => {
     const overlay = document.getElementById('productPopupOverlay');
     overlay.style.display = 'flex';
-
+    
     const title = btn.dataset.title;
     const description = btn.dataset.description;
     const download = btn.dataset.download;
@@ -551,6 +551,7 @@
 
   function closeProductPopup() {
     document.getElementById('productPopupOverlay').style.display = 'none';
+ 
   }
 
   function shareProduct() {

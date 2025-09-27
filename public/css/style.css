@@ -10,6 +10,11 @@
 body {
   font-family: "Poppins", sans-serif;
 }
+/* By default body can scroll */
+body.no-scroll {
+  overflow: hidden;
+}
+
 
 html {
   scroll-behavior: smooth;
@@ -34,15 +39,16 @@ a {
   color: black;
   text-decoration: none;
   text-decoration-color: white;
+  cursor: pointer;
 }
 
-a:hover {
+#desktop-nav a:hover {
   /* background-color: gray; */
   border: 2px solid black;
   border-radius: 30px;
   padding: 5px 10px;
   /* text-decoration: underline; */
-  text-underline-offset: 1rem;
+  /* text-underline-offset: 1rem; */
   text-decoration-color: rgb(181, 181, 181);
 }
 
@@ -500,7 +506,7 @@ article .icon {
   }
 
   .popup-right {
-    /* flex: 1 1 300px; */
+    flex: 1 1 300px;
     min-width: 300px;
   }
 
@@ -512,7 +518,8 @@ article .icon {
 
   .popup-image-gallery {
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
+    overflow-x: scroll;
     gap: 10px;
   }
 
@@ -528,7 +535,9 @@ article .icon {
   .popup-image-gallery img:hover {
     border-color: #0d6efd;
   }
-
+  .popup-image-gallery ::-webkit-scrollbar{
+    display: none;
+  }
   .popup-buttons {
     margin-top: 20px;
     display: flex;
