@@ -537,6 +537,7 @@ article .icon {
   }
   .popup-image-gallery ::-webkit-scrollbar{
     display: none;
+    width:0;
   }
   .popup-buttons {
     margin-top: 20px;

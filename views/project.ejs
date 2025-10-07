@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects | AmiiCAD | Amit Sharma</title>
-    <link rel="stylesheet" href="/css/style.css" />
     <link rel="website icon" type="jpg" href="/Images/logo.jpg">
     <link rel="stylesheet" href="/css/mediaqueries.css" />
-
+    <link rel="stylesheet" href="/css/style.css" />
 </head>
 <style>
   nav, .nav-links {
@@ -31,6 +30,7 @@
     .article-container img:hover{
       transform: scale(1.15);
     }
+   
 </style>
 
 <body>
@@ -40,8 +40,8 @@
           <ul class="nav-links">
             <li><a href="/">Home</a></li>
             <li><a href="/#experience">Experience</a></li>
-            <li><a style="background-color: gray; color: white; border-radius: 30px; padding: 5px 10px;" href="./project.html">Projects</a></li>
-            <li><a href="./contact.html">Contact</a></li>
+            <li><a style="background-color: gray; color: white; border-radius: 30px; padding: 5px 10px;" href="/project">Projects</a></li>
+            <li><a href="/contact">Contact</a></li>
             <li><a href="/#contact">Log in</a></li>
           </ul>
         </div>
@@ -64,20 +64,22 @@
         </div>
       </nav>
 
-      <section id="projects">
+    <section id="projects">
   <p class="section__text__p1">
-    Browse My All Recent
+    Browse My Recent 
+    <button onclick="location.href='/project'">View All</button>
   </p>
   <h1 class="title">Projects</h1>
 
   <div class="projects-grid">
     <% images.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))
         .forEach(project => { %>
-      <div class="project-card">
+      <div class="project-card" style="border: 2px solid  rgb(163, 163, 163); 
+    background: rgb(250, 250, 250);">
         <div class="project-image-container">
           <img src="<%= project.urls[0] %>" alt="<%= project.title %>" class="project-img">
         </div>
-        <h3 class="project-title"><%= project.title %></h3>
+        <h3 class="project-title" ><%= project.title %></h3>
        <button class="btn btn-primary project-btn" 
         data-id="<%= project._id %>" 
         data-title="<%= project.title %>" 
@@ -98,6 +100,9 @@
     <% }) %>
   </div>
 </section>
+
+
+<!-- Product Popup -->
 <div class="overlay" id="productPopupOverlay">
   <div class="popup">
     <div class="popup-left">
@@ -105,9 +110,9 @@
       <div class="popup-image-gallery" id="popupImageGallery"></div>
     </div>
     <div class="popup-right">
-      <h2 id="popupTitle"></h2>
+      <h2 id="popupTitle" style="text-align: center;"></h2>
       <p id="popupDescription"></p>
-      <div class="popup-buttons">
+      <div class="popup-buttons" style="transition: none;">
         <a id="popupDownloadBtn" href="#" target="_blank">
           <button class="btn btn-success">Download</button>
         </a>
@@ -141,13 +146,14 @@
           </div>
         </div>
       </section>
-      <script>
-       // Attach popup functionality to all "View More" buttons
+    
+<script>
+  // Attach popup functionality to all "View More" buttons
  document.querySelectorAll(".project-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     const overlay = document.getElementById('productPopupOverlay');
     overlay.style.display = 'flex';
-
+    
     const title = btn.dataset.title;
     const description = btn.dataset.description;
     const download = btn.dataset.download;
@@ -176,6 +182,7 @@
 
   function closeProductPopup() {
     document.getElementById('productPopupOverlay').style.display = 'none';
+ 
   }
 
   function shareProduct() {
@@ -192,5 +199,6 @@
     }
   }
 </script>
+
 </body>
 </html>
