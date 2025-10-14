@@ -16,7 +16,7 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 // Update product
-router.post("/edit/:id", upload.array("images"), async (req, res) => {
+router.post("/:id", upload.array("images"), async (req, res) => {
   try {
     const { title, description, downloadUrl, mainImageIndex, deleteImages } = req.body;
     const product = await Image.findById(req.params.id);
