@@ -5,7 +5,7 @@ const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("cloudinary").v2;
 const Image = require("../models/Image");
 
-// Multer + Cloudinary Storage
+// Multer + Cloudinary storage
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
@@ -15,56 +15,79 @@ const storage = new CloudinaryStorage({
 });
 const upload = multer({ storage });
 
-// Update product
+// Edit product
 router.post("/:id", upload.array("images"), async (req, res) => {
   try {
     const { title, description, downloadUrl, mainImageIndex, deleteImages } = req.body;
     const product = await Image.findById(req.params.id);
-    if (!product) return res.redirect("/admin/dashboard");
+    if (!product) {
+      console.log("Product not found:", req.params.id);
+      return res.redirect("/dashboard");
+    }
 
-    // Update title, description, download URL
+    console.log("Original product data:", product);
+
+    // 1️⃣ Update basic fields
     product.title = title;
     product.description = description;
     product.downloadUrl = downloadUrl;
+    console.log("Updated title, description, downloadUrl");
 
-    // Delete images
+    // 2️⃣ Delete images
     if (deleteImages) {
       const toDelete = Array.isArray(deleteImages) ? deleteImages : [deleteImages];
-      toDelete.forEach(async idx => {
-        idx = parseInt(idx);
+      const sortedIndexes = toDelete.map(i => parseInt(i)).sort((a,b) => b - a);
+      console.log("Indexes to delete:", sortedIndexes);
+
+      for (const idx of sortedIndexes) {
         if (product.urls[idx]) {
+          console.log(`Deleting image at index ${idx}:`, product.urls[idx]);
           await cloudinary.uploader.destroy(product.publicIds[idx]);
           product.urls.splice(idx, 1);
           product.publicIds.splice(idx, 1);
+        } else {
+          console.log(`No image found at index ${idx} to delete`);
         }
-      });
+      }
+    } else {
+      console.log("No images selected for deletion");
     }
 
-    // Add new images
+    // ✅ 3️⃣ Set main image BEFORE adding new images
+    if (mainImageIndex !== undefined) {
+      const idx = parseInt(mainImageIndex);
+      if (product.urls[idx]) {
+        const mainUrl = product.urls.splice(idx, 1)[0];
+        const mainId = product.publicIds.splice(idx, 1)[0];
+        product.urls.unshift(mainUrl);
+        product.publicIds.unshift(mainId);
+        console.log(`Main image set to index ${idx}:`, mainUrl);
+      } else {
+        console.log(`Main image index ${idx} is invalid`);
+      }
+    } else {
+      console.log("No main image index provided");
+    }
+
+    // ✅ 4️⃣ Add new images at the end (does not affect main)
     if (req.files && req.files.length > 0) {
       req.files.forEach(file => {
         product.urls.push(file.path);
         product.publicIds.push(file.filename);
+        console.log("Added new image:", file.path);
       });
+    } else {
+      console.log("No new images uploaded");
     }
 
-    // Set main image
-    if (mainImageIndex !== undefined && product.urls[mainImageIndex]) {
-      const idx = parseInt(mainImageIndex);
-      const mainUrl = product.urls.splice(idx, 1)[0];
-      const mainId = product.publicIds.splice(idx, 1)[0];
-      product.urls.unshift(mainUrl);
-      product.publicIds.unshift(mainId);
-    }
-
+    console.log("Final product data before save:", product);
     await product.save();
+    console.log("Product saved successfully");
     res.redirect("/dashboard");
   } catch (err) {
-    console.error(err);
+    console.error("Error editing product:", err);
     res.status(500).send("Error editing product");
   }
 });
 
 module.exports = router;
-
-

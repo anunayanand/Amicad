@@ -5,12 +5,26 @@
   <title>Edit Product</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    .existing-image { width: 80px; height: 80px; object-fit: cover; margin: 5px; border: 2px solid transparent; cursor: pointer; }
-    .existing-image:hover { border-color: #0d6efd; transform: scale(1.05); }
-    .image-wrapper { position: relative; display: inline-block; }
-    .delete-checkbox { position: absolute; top: 2px; left: 2px; }
-    .star-btn { position: absolute; bottom: 2px; right: 2px; font-weight: bold; }
+    .existing-image { width: 80px; height: 80px; object-fit: cover; border: 2px solid transparent; cursor: pointer; transition: transform 0.2s; }
+    .existing-image:hover { transform: scale(1.05); }
     .main-selected { border-color: gold !important; }
+    .image-wrapper { position: relative; display: inline-block; margin:5px; }
+    .delete-checkbox { position: absolute; top:2px; left:2px; }
+    .star-btn { position: absolute; bottom:2px; right:22px; font-weight: bold; }
+    .delete-btn { position: absolute; bottom:2px; right:2px; font-weight: bold; }
+    .existing-image { 
+  width: 80px; 
+  height: 80px; 
+  object-fit: cover; 
+  border: 2px solid transparent; 
+  cursor: pointer; 
+  transition: transform 0.2s; 
+}
+.existing-image:hover { transform: scale(1.05); }
+.main-selected { border-color: gold !important; }
+.image-wrapper { display:inline-block; margin:5px; text-align:center; }
+.star-btn, .delete-btn { width:36px; } /* small buttons side by side */
+
   </style>
 </head>
 <body class="p-4">
@@ -19,66 +33,101 @@
     <a href="/dashboard" class="btn btn-secondary mb-3">Back to Dashboard</a>
 
     <form action="/edit/<%= product._id %>" method="POST" enctype="multipart/form-data">
-  <div class="mb-3">
-    <label>Title</label>
-    <input type="text" class="form-control" name="title" value="<%= product.title %>" required>
-  </div>
+      <!-- Title -->
+      <div class="mb-3">
+        <label>Title</label>
+        <input type="text" class="form-control" name="title" value="<%= product.title %>" required>
+      </div>
 
-  <div class="mb-3">
-    <label>Description</label>
-    <textarea class="form-control" name="description" rows="3" required><%= product.description %></textarea>
-  </div>
+      <!-- Description -->
+      <div class="mb-3">
+        <label>Description</label>
+        <textarea class="form-control" name="description" rows="3" required><%= product.description %></textarea>
+      </div>
 
-  <div class="mb-3">
-    <label>Download URL</label>
-    <input type="text" class="form-control" name="downloadUrl" value="<%= product.downloadUrl %>" required>
-  </div>
+      <!-- Download URL -->
+      <div class="mb-3">
+        <label>Download URL</label>
+        <input type="text" class="form-control" name="downloadUrl" value="<%= product.downloadUrl %>" required>
+      </div>
 
-  <div class="mb-3">
-    <label>Existing Images</label>
-    <div id="existingImages">
-      <% product.urls.forEach(function(url, idx){ %>
-        <div class="image-wrapper" data-idx="<%= idx %>">
-          <img src="<%= url %>" class="existing-image">
-          <input type="checkbox" name="deleteImages" value="<%= idx %>" class="delete-checkbox" title="Delete this image">
-          <button type="button" class="btn btn-sm btn-warning star-btn" title="Set as main image">★</button>
+      <!-- Existing Images -->
+<!-- Existing Images -->
+<div class="mb-3">
+  <label>Existing Images</label>
+  <div id="existingImages" style="display:flex; flex-wrap:wrap; gap:15px;">
+    <% product.urls.forEach(function(url, idx){ %>
+      <div class="image-wrapper" data-idx="<%= idx %>" style="width:120px; text-align:center;">
+        <img src="<%= url %>" class="existing-image" 
+             style="width:120px; height:120px; object-fit:cover; border:2px solid ">
+        
+        <div class="image-actions" style="display:flex; justify-content:space-between; margin-top:5px; font-size:14px;">
+          <!-- Radio button to set main -->
+          <label>
+            <input type="radio" name="mainImageIndex" value="<%= idx %>" <%= idx === 0 ? 'checked' : '' %> >
+            Main
+          </label>
+
+          <!-- Checkbox to mark for deletion -->
+          <label>
+            <input type="checkbox" name="deleteImages" value="<%= idx %>">
+            Delete
+          </label>
         </div>
-      <% }) %>
-    </div>
+      </div>
+    <% }) %>
   </div>
+</div>
 
-  <div class="mb-3">
-    <label>Add New Images</label>
-    <input type="file" class="form-control" name="images" multiple>
-  </div>
 
-  <input type="hidden" name="mainImageIndex" id="mainImageIndex">
 
-  <button type="submit" class="btn btn-primary">Save Changes</button>
-</form>
 
+      <!-- Add New Images -->
+      <div class="mb-3">
+        <label>Add New Images</label>
+        <input type="file" name="images" class="form-control" multiple>
+      </div>
+
+      <!-- Hidden input for main image -->
+      <input type="hidden" name="mainImageIndex" id="mainImageIndex" value="0">
+
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
   </div>
 
   <script>
-    // Handle main image selection
     const existingImages = document.querySelectorAll('.image-wrapper');
-const mainInput = document.getElementById('mainImageIndex');
+    const mainInput = document.getElementById('mainImageIndex');
 
-existingImages.forEach(wrapper => {
-  const btn = wrapper.querySelector('.star-btn');
-  btn.addEventListener('click', (e) => {
-    e.preventDefault(); // prevent form submit
+    existingImages.forEach(wrapper => {
+      const starBtn = wrapper.querySelector('.star-btn');
+      const deleteBtn = wrapper.querySelector('.delete-btn');
+      const deleteCheckbox = wrapper.querySelector('.delete-checkbox');
 
-    // Remove highlight from all
-    existingImages.forEach(w => w.querySelector('.existing-image').classList.remove('main-selected'));
+      // Set as main image
+      starBtn.addEventListener('click', e => {
+        e.preventDefault();
+        existingImages.forEach(w => w.querySelector('.existing-image').classList.remove('main-selected'));
+        wrapper.querySelector('.existing-image').classList.add('main-selected');
+        mainInput.value = parseInt(wrapper.dataset.idx);
+      });
 
-    // Highlight selected
-    wrapper.querySelector('.existing-image').classList.add('main-selected');
+      // Delete image visually & mark checkbox
+      deleteBtn.addEventListener('click', e => {
+        e.preventDefault();
+        wrapper.style.display = 'none';
+        deleteCheckbox.checked = true;
 
-    // Set hidden input value
-    mainInput.value = parseInt(wrapper.dataset.idx);
-  });
-});
+        // If deleted image was main, set first visible as main
+        if(wrapper.querySelector('.existing-image').classList.contains('main-selected')){
+          const firstVisible = document.querySelector('.image-wrapper:not([style*="display: none"]) .existing-image');
+          if(firstVisible){
+            firstVisible.classList.add('main-selected');
+            mainInput.value = firstVisible.parentElement.dataset.idx;
+          }
+        }
+      });
+    });
   </script>
 </body>
 </html>

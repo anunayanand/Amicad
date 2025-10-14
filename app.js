@@ -26,6 +26,7 @@ const cloudinary = require("cloudinary").v2;
 const Image = require("./models/Image");
 dotenv.config();
 const app = express();
+const isLoggedIn = require('./middleware/auth');
 
 // MongoDB connection
 require("./db");
@@ -72,7 +73,7 @@ const editRoute = require("./router/editRoute");
 const dashboardRoute = require("./router/dashboardRoute");
 const toggleHomeRoute = require("./router/showHomeRoute");
 
-app.get("/edit/:id", async (req, res) => {
+app.get("/edit/:id", isLoggedIn,async (req, res) => {
   try {
     const product = await Image.findById(req.params.id);
     if (!product) return res.status(404).send("Product not found");
