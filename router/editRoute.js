@@ -21,23 +21,23 @@ router.post("/:id", upload.array("images"), async (req, res) => {
     const { title, description, downloadUrl, mainImageIndex, deleteImages } = req.body;
     const product = await Image.findById(req.params.id);
     if (!product) {
-      console.log("Product not found:", req.params.id);
+      // console.log("Product not found:", req.params.id);
       return res.redirect("/dashboard");
     }
 
-    console.log("Original product data:", product);
+    // console.log("Original product data:", product);
 
     // 1️⃣ Update basic fields
     product.title = title;
     product.description = description;
     product.downloadUrl = downloadUrl;
-    console.log("Updated title, description, downloadUrl");
+    // console.log("Updated title, description, downloadUrl");
 
     // 2️⃣ Delete images
     if (deleteImages) {
       const toDelete = Array.isArray(deleteImages) ? deleteImages : [deleteImages];
       const sortedIndexes = toDelete.map(i => parseInt(i)).sort((a,b) => b - a);
-      console.log("Indexes to delete:", sortedIndexes);
+      // console.log("Indexes to delete:", sortedIndexes);
 
       for (const idx of sortedIndexes) {
         if (product.urls[idx]) {
@@ -45,12 +45,8 @@ router.post("/:id", upload.array("images"), async (req, res) => {
           await cloudinary.uploader.destroy(product.publicIds[idx]);
           product.urls.splice(idx, 1);
           product.publicIds.splice(idx, 1);
-        } else {
-          console.log(`No image found at index ${idx} to delete`);
-        }
+        } 
       }
-    } else {
-      console.log("No images selected for deletion");
     }
 
     // ✅ 3️⃣ Set main image BEFORE adding new images
@@ -62,31 +58,25 @@ router.post("/:id", upload.array("images"), async (req, res) => {
         product.urls.unshift(mainUrl);
         product.publicIds.unshift(mainId);
         console.log(`Main image set to index ${idx}:`, mainUrl);
-      } else {
-        console.log(`Main image index ${idx} is invalid`);
       }
-    } else {
-      console.log("No main image index provided");
-    }
+    } 
 
     // ✅ 4️⃣ Add new images at the end (does not affect main)
     if (req.files && req.files.length > 0) {
       req.files.forEach(file => {
         product.urls.push(file.path);
         product.publicIds.push(file.filename);
-        console.log("Added new image:", file.path);
+        // console.log("Added new image:", file.path);
       });
-    } else {
-      console.log("No new images uploaded");
     }
 
-    console.log("Final product data before save:", product);
+    // console.log("Final product data before save:", product);
     await product.save();
-    console.log("Product saved successfully");
+    // console.log("Product saved successfully");
     res.redirect("/dashboard");
   } catch (err) {
     console.error("Error editing product:", err);
-    res.status(500).send("Error editing product");
+    res.redirect('/dashboard');
   }
 });
 

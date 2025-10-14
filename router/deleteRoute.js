@@ -19,7 +19,7 @@ router.post("/:id", async (req, res) => {
     res.redirect("/dashboard"); // redirect to admin dashboard
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error deleting product");
+    res.redirect('/')
   }
 });
 
