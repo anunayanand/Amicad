@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Product</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .existing-image { width: 80px; height: 80px; object-fit: cover; margin: 5px; border: 2px solid transparent; cursor: pointer; }
+    .existing-image:hover { border-color: #0d6efd; transform: scale(1.05); }
+    .image-wrapper { position: relative; display: inline-block; }
+    .delete-checkbox { position: absolute; top: 2px; left: 2px; }
+    .star-btn { position: absolute; bottom: 2px; right: 2px; font-weight: bold; }
+    .main-selected { border-color: gold !important; }
+  </style>
+</head>
+<body class="p-4">
+  <div class="container">
+    <h2>Edit Product</h2>
+    <a href="/dashboard" class="btn btn-secondary mb-3">Back to Dashboard</a>
+
+    
+      <div class="mb-3">
+        <label>Title</label>
+        <input type="text" class="form-control" name="title" value="<%= product.title %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Description</label>
+        <textarea class="form-control" name="description" rows="3" required><%= product.description %></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label>Download URL</label>
+        <input type="text" class="form-control" name="downloadUrl" value="<%= product.downloadUrl %>" required>
+      </div>
+
+      <div class="mb-3">
+        <label>Existing Images</label>
+        <div id="existingImages">
+          <% product.urls.forEach(function(url, idx){ %>
+            <div class="image-wrapper" data-idx="<%= idx %>">
+              <img src="<%= url %>" class="existing-image">
+              <input type="checkbox" name="deleteImages" value="<%= idx %>" class="delete-checkbox" title="Delete this image">
+              <button type="button" class="btn btn-sm btn-warning star-btn" title="Set as main image">★</button>
+            </div>
+          <% }) %>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label>Add New Images</label>
+        <input type="file" class="form-control" name="images" multiple>
+      </div>
+
+      <input type="hidden" name="mainImageIndex" id="mainImageIndex">
+
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+  </div>
+
+  <script>
+    // Handle main image selection
+    const existingImages = document.querySelectorAll('.image-wrapper');
+    const mainInput = document.getElementById('mainImageIndex');
+
+    existingImages.forEach(wrapper => {
+      const btn = wrapper.querySelector('.star-btn');
+      btn.addEventListener('click', () => {
+        // Remove highlight from others
+        existingImages.forEach(w => w.querySelector('.existing-image').classList.remove('main-selected'));
+
+        // Highlight selected
+        wrapper.querySelector('.existing-image').classList.add('main-selected');
+
+        // Set hidden input
+        mainInput.value = wrapper.dataset.idx;
+      });
+    });
+  </script>
+</body>
+</html>

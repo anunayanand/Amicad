@@ -16,31 +16,31 @@ const storage = new CloudinaryStorage({
 const upload = multer({ storage });
 
 // Update product
-router.put("/:id", upload.array("images"), async (req, res) => {
+router.post("/edit/:id", upload.array("images"), async (req, res) => {
   try {
-    const { title, description, mainImageIndex, deleteImages ,downloadUrl} = req.body;
+    const { title, description, downloadUrl, mainImageIndex, deleteImages } = req.body;
     const product = await Image.findById(req.params.id);
-    if (!product) return res.status(404).send("Product not found");
+    if (!product) return res.redirect("/admin/dashboard");
 
-    // Update title and description
+    // Update title, description, download URL
     product.title = title;
     product.description = description;
     product.downloadUrl = downloadUrl;
 
-    // Delete selected images
+    // Delete images
     if (deleteImages) {
-      const imagesToDelete = Array.isArray(deleteImages) ? deleteImages : [deleteImages];
-      for (let idx of imagesToDelete) {
+      const toDelete = Array.isArray(deleteImages) ? deleteImages : [deleteImages];
+      toDelete.forEach(async idx => {
         idx = parseInt(idx);
         if (product.urls[idx]) {
           await cloudinary.uploader.destroy(product.publicIds[idx]);
           product.urls.splice(idx, 1);
           product.publicIds.splice(idx, 1);
         }
-      }
+      });
     }
 
-    // Add new uploaded images
+    // Add new images
     if (req.files && req.files.length > 0) {
       req.files.forEach(file => {
         product.urls.push(file.path);
@@ -48,23 +48,23 @@ router.put("/:id", upload.array("images"), async (req, res) => {
       });
     }
 
-    // Set main image (bring it to index 0)
-    if (mainImageIndex !== undefined) {
-      const mainIdx = parseInt(mainImageIndex);
-      if (product.urls[mainIdx]) {
-        const mainUrl = product.urls.splice(mainIdx, 1)[0];
-        const mainId = product.publicIds.splice(mainIdx, 1)[0];
-        product.urls.unshift(mainUrl);
-        product.publicIds.unshift(mainId);
-      }
+    // Set main image
+    if (mainImageIndex !== undefined && product.urls[mainImageIndex]) {
+      const idx = parseInt(mainImageIndex);
+      const mainUrl = product.urls.splice(idx, 1)[0];
+      const mainId = product.publicIds.splice(idx, 1)[0];
+      product.urls.unshift(mainUrl);
+      product.publicIds.unshift(mainId);
     }
 
     await product.save();
     res.redirect("/dashboard");
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error updating product");
+    res.status(500).send("Error editing product");
   }
 });
 
 module.exports = router;
+
+

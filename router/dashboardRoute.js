@@ -11,7 +11,7 @@ router.get("/dashboard", isLoggedIn, async (req, res) => {
 
     // Render dashboard view with images and logged-in user
     res.render("dashboard", {
-      images,
+      product : images,
       user: req.session.user,
     });
   } catch (err) {

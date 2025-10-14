@@ -72,6 +72,17 @@ const editRoute = require("./router/editRoute");
 const dashboardRoute = require("./router/dashboardRoute");
 const toggleHomeRoute = require("./router/showHomeRoute");
 
+app.get("/edit/:id", async (req, res) => {
+  try {
+    const product = await Image.findById(req.params.id);
+    if (!product) return res.status(404).send("Product not found");
+    res.render("editProduct", { product });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server Error");
+  }
+});
+
 // Use Routes
 app.use("/auth", authRoute);
 app.use("/upload", uploadRoute);

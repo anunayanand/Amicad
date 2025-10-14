@@ -3,7 +3,7 @@ const router = express.Router();
 const cloudinary = require("cloudinary").v2;
 const Image = require("../models/Image");
 
-router.delete("/:id", async (req, res) => {
+router.post("/:id", async (req, res) => {
   try {
     const product = await Image.findById(req.params.id);
     if (!product) return res.status(404).send("Product not found");
