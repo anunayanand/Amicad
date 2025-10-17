@@ -25,14 +25,14 @@ router.get("/register", (req, res) => {
 
 router.post("/register", async (req, res) => {
   try {
-    const { username, email, password, confirmPassword } = req.body;
+    const {  email, password, confirmPassword } = req.body;
     if (password !== confirmPassword) {
       req.flash("error", "Passwords do not match");
       return res.redirect("/auth/register");
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ username, email, password: hashedPassword });
+    const newUser = new User({ email, password: hashedPassword });
     await newUser.save();
 
     req.flash("success", "Admin account created! Please log in.");
@@ -51,8 +51,8 @@ router.get("/login", (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
     if (!user) {
       req.flash("error", "Invalid username or password");
       return res.redirect("/auth/login");

@@ -115,6 +115,8 @@ app.get("/", async (req, res) => {
   }
 });
 
+const forgotPasswordRouter = require('./router/forgottPassword');
+app.use('/', forgotPasswordRouter);
 // Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () =>
