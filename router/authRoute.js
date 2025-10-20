@@ -54,13 +54,13 @@ router.post("/login", async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
     if (!user) {
-      req.flash("error", "Invalid username or password");
+      req.flash("error", "Invalid Email or password");
       return res.redirect("/auth/login");
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      req.flash("error", "Invalid username or password");
+      req.flash("error", "Invalid Email or password");
       return res.redirect("/auth/login");
     }
 
