@@ -1,6 +1,6 @@
 const express = require("express");
 const axios = require('axios');
-const url = "https://amiicad.onrender.com";
+const url = "https://amiicad.rixilab.tech";
 
 const interval = 60000;
 
